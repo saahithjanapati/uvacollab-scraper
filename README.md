@@ -1,5 +1,5 @@
 # uvacollab-scraper
-This is a script to scrape resources from of UVACollab sites.
+This is a script to scrape resources from UVACollab sites.
 
 ## Usage
 Make sure you have a version of Python 3 installed. Then, install the required dependencies using:
