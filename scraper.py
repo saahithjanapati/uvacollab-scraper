@@ -71,12 +71,22 @@ class Scraper:
 
     def wait_for_download_to_complete(self, structure):
         downloaded_files = [f for f in os.listdir(self.download_base_dir) if f.endswith('.pdf') or f.endswith('.ppt') or f.endswith('.pptx') or f.endswith(".docx")]
+        
+        curr_downloaded = 0
+        curr_downloaded_timestamp = None
+
         while len(downloaded_files) != self.num_files_to_download:
             print("downloaded files: ", len(downloaded_files))
             print("number of files needed: ", self.num_files_to_download)
             print("")
             time.sleep(1)
             downloaded_files = [f for f in os.listdir(self.download_base_dir) if f.endswith('.pdf') or f.endswith('.ppt') or f.endswith('.pptx') or f.endswith(".docx")]
+            if len(downloaded_files) != curr_downloaded:
+                curr_downloaded = len(downloaded_files)
+                curr_downloaded_timestamp = time.time()
+            
+            if time.time() - curr_downloaded_timestamp > 30:    # if we've been stuck at the same number for more than 30 seconds, just quit
+                break
         return
 
 
